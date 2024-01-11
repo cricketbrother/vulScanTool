@@ -57,14 +57,14 @@ ENV MOBSF_USER=mobsf \
 # Install wkhtmltopdf & OpenJDK
 ARG TARGETPLATFORM
 
-COPY scripts/install_java_wkhtmltopdf.sh .
+COPY Mobile-Security-Framework-MobSF/scripts/install_java_wkhtmltopdf.sh .
 RUN chmod +x ./install_java_wkhtmltopdf.sh
 RUN ./install_java_wkhtmltopdf.sh
 
 RUN groupadd -g 9901 $MOBSF_USER
 RUN adduser $MOBSF_USER --shell /bin/false -u 9901 --ingroup $MOBSF_USER --gecos "" --disabled-password
 
-COPY poetry.lock pyproject.toml ./
+COPY Mobile-Security-Framework-MobSF/poetry.lock Mobile-Security-Framework-MobSF/pyproject.toml ./
 RUN python3 -m pip install --upgrade --no-cache-dir pip poetry==${POETRY_VERSION} && \
     poetry config virtualenvs.create false && \
     poetry install --only main --no-root --no-interaction --no-ansi
@@ -85,7 +85,7 @@ RUN \
 
 WORKDIR /home/mobsf/Mobile-Security-Framework-MobSF
 # Copy source code
-COPY . .
+COPY Mobile-Security-Framework-MobSF/* .
 
 # Check if Postgres support needs to be enabled.
 # Disabled by default
@@ -95,6 +95,7 @@ ENV POSTGRES_USER=postgres \
     POSTGRES_DB=mobsf \
     POSTGRES_HOST=postgres
 
+RUN chmod +x ./scripts/postgres_support.sh
 RUN ./scripts/postgres_support.sh $POSTGRES
 
 HEALTHCHECK CMD curl --fail http://host.docker.internal:8000/ || exit 1
