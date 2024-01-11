@@ -4,6 +4,7 @@
 if [ -d Mobile-Security-Framework-MobSF ]; then
     echo ">>> Updating Mobile-Security-Framework-MobSF"
     cd Mobile-Security-Framework-MobSF
+    rm -f docker-compose.yml
     git pull
     cd ..
 else
