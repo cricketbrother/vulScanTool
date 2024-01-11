@@ -18,8 +18,8 @@ cp docker-compose.yml Mobile-Security-Framework-MobSF/docker-compose.yml
 
 # Make Directory
 echo ">>> Make Directory"
-mkdir -p /opt/mobsf/.Mobsf
-chown 9901:9901 /opt/mobsf/.Mobsf
+mkdir -p /opt/mobsf/.MobSF
+chown 9901:9901 /opt/mobsf/.MobSF
 
 # Install
 echo ">>> Installing MobSF"
