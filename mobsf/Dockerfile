@@ -58,6 +58,7 @@ ENV MOBSF_USER=mobsf \
 ARG TARGETPLATFORM
 
 COPY scripts/install_java_wkhtmltopdf.sh .
+RUN chmod +x ./install_java_wkhtmltopdf.sh
 RUN ./install_java_wkhtmltopdf.sh
 
 RUN groupadd -g 9901 $MOBSF_USER
