@@ -85,7 +85,7 @@ RUN \
 
 WORKDIR /home/mobsf/Mobile-Security-Framework-MobSF
 # Copy source code
-COPY Mobile-Security-Framework-MobSF/* .
+COPY Mobile-Security-Framework-MobSF .
 
 # Check if Postgres support needs to be enabled.
 # Disabled by default
