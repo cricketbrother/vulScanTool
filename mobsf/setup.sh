@@ -10,8 +10,14 @@ else
     git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF.git
 fi
 
+# Change docker-compose.yml
+echo ">>> Changing docker-compose.yml"
+rm -f Mobile-Security-Framework-MobSF/docker-compose.yml
+cp docker-compose.yml Mobile-Security-Framework-MobSF/docker-compose.yml
+
 # Install
 echo ">>> Installing MobSF"
+cd Mobile-Security-Framework-MobSF
 docker compose up
 
 # Run

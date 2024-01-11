@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mobsf
     volumes:
-      - /opt/mobsf/postgresql/data:/var/lib/postgresql/data
+      - /opt/mobsf/postgresql/data:/var/lib/postgresql/data:rw
     ports:
       - "5432:5432"
     networks:
@@ -29,7 +29,7 @@ services:
     container_name: mobsf-app
     restart: always
     volumes:
-      - /opt/mobsf/.MobSF:/home/mobsf/.MobSF
+      - /opt/mobsf/.MobSF:/home/mobsf/.MobSF:rw
     ports:
       - "8000:8000"
     networks:
