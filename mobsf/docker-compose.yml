@@ -1,0 +1,41 @@
+version: '3'
+services:
+  mobsf-db:
+    image: postgres:latest
+    container_name: mobsf-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mobsf
+    volumes:
+      - /opt/mobsf/postgresql/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - mobsf
+
+  mobsf-app:
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=mobsf
+      - POSTGRES_HOST=mobsf-db
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - POSTGRES=True
+    container_name: mobsf-app
+    restart: always
+    volumes:
+      - /opt/mobsf/.MobSF:/home/mobsf/.MobSF
+    ports:
+      - "8000:8000"
+    networks:
+      - mobsf
+    depends_on:
+      - mobsf-db
+
+networks:
+  mobsf:
