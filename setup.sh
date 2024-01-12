@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# 检查是否是基于Debian系列的操作系统
+echo ">>> 检查是否是基于Debian系列的操作系统"
+cat /etc/os-release | grep -i "debian" >/dev/null
+if [ $? -ne 0 ]; then
+    echo "此脚本仅支持基于Debian系列的操作系统"
+    exit 1
+fi
+
 # 检查是否为root用户
 echo ">>> 检查是否为root用户"
 if [ $(id -u) != "0" ]; then
@@ -24,7 +32,6 @@ echo \
     tee /etc/apt/sources.list.d/docker.list >/dev/null
 apt update -y
 apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-usermod -aG docker $USER && su $USER
 
 # 获取脚本所在目录
 echo ">>> 获取脚本所在目录"
@@ -37,6 +44,7 @@ echo "脚本所在目录：${work_dir}"
 # 安装MobSF
 echo ">>> 安装MobSF"
 mobsf_dir="${work_dir}/mobsf"
+mkdir -p "${mobsf_dir}"
 cd "${mobsf_dir}"
 
 if [ -d Mobile-Security-Framework-MobSF ]; then
