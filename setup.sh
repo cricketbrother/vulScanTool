@@ -78,8 +78,8 @@ sed -i "s#MOBSF_APP_VOL#${mobsf_app_vol}#g" docker-compose.yml
 
 # 构建镜像
 echo ">>> 构建镜像"
-docker-compose build
+docker compose build
 
 # 启动容器
 echo ">>> 启动容器"
-docker-compose up -d
+docker compose up -d
