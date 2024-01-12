@@ -64,7 +64,7 @@ fi
 # 替换MobSF的docker-compose.yml
 echo ">>> 替换MobSF的docker-compose.yml"
 rm -f docker-compose.yml
-cp ../docker-compose-mobsf.yml docker-compose.yml
+cp ../../docker-compose-mobsf.yml docker-compose.yml
 
 # 创建持久化目录
 echo ">>> 创建持久化目录"
