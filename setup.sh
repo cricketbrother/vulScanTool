@@ -24,6 +24,9 @@ apt install -y ca-certificates curl gnupg
 echo ">>> 安装Docker"
 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt remove $pkg; done
 install -m 0755 -d /etc/apt/keyrings
+if [ -f /etc/apt/keyrings/docker.gpg ]; then
+    rm -f /etc/apt/keyrings/docker.gpg
+fi
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 chmod a+r /etc/apt/keyrings/docker.gpg
 echo \
