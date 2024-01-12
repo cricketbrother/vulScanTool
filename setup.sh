@@ -55,16 +55,16 @@ if [ -d Mobile-Security-Framework-MobSF ]; then
     cd Mobile-Security-Framework-MobSF
     rm -f docker-compose.yml
     git pull
-    cd ..
 else
     echo ">>> 克隆MobSF"
     git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF.git
+    cd Mobile-Security-Framework-MobSF
 fi
 
 # 替换MobSF的docker-compose.yml
 echo ">>> 替换MobSF的docker-compose.yml"
-rm -f Mobile-Security-Framework-MobSF/docker-compose.yml
-cp docker-compose-mobsf.yml Mobile-Security-Framework-MobSF/docker-compose.yml
+rm -f docker-compose.yml
+cp ../docker-compose-mobsf.yml docker-compose.yml
 
 # 创建持久化目录
 echo ">>> 创建持久化目录"
@@ -73,12 +73,11 @@ mobsf_app_vol="${mobsf_dir}/.MobSF"
 mkdir -p "${mobsf_db_vol}"
 mkdir -p "${mobsf_app_vol}"
 chown 9901:9901 "${mobsf_app_vol}"
-sed -i "s#MOBSF_DB_VOL#${mobsf_db_vol}#g" Mobile-Security-Framework-MobSF/docker-compose.yml
-sed -i "s#MOBSF_APP_VOL#${mobsf_app_vol}#g" Mobile-Security-Framework-MobSF/docker-compose.yml
+sed -i "s#MOBSF_DB_VOL#${mobsf_db_vol}#g" docker-compose.yml
+sed -i "s#MOBSF_APP_VOL#${mobsf_app_vol}#g" docker-compose.yml
 
 # 构建镜像
 echo ">>> 构建镜像"
-cd Mobile-Security-Framework-MobSF
 docker-compose build
 
 # 启动容器
